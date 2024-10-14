@@ -1,0 +1,17 @@
+import requests
+def ppost(pincode):
+    response = requests.get(f'https://api.postalpincode.in/pincode/{pincode}')
+    if response.status_code == 200:
+        data = response.json()
+        if data[0]['Status'] == 'Success':
+            post= data[0]['PostOffice'][0]['Name']
+            return post
+        else:
+            return "invalid pin"
+    else:
+        return "error"
+    
+pincode = int(input("enter pincode"))
+
+post=ppost(pincode)
+print("post office name",post)
